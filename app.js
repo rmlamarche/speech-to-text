@@ -2,11 +2,20 @@ const fs = require("fs");
 const express = require('express');
 const shell = require('shelljs');
 const config = require('./config.js');
+const https = require('https');
 
 var app = express();
 app.use(express.static(__dirname + '/public'));
-app.listen(8080, () => {
-  console.log("Voice recognition running on port 8080");
+
+var privateKey = fs.readFileSync('privatekey.pem').toString();
+var certificate = fs.readFileSync('certificate.pem').toString();
+
+var httpOptions = {
+  key: privateKey,
+  cert: certificate
+};
+https.createServer(httpOptions, app).listen(8000, () => {
+  console.log(">> Serving on " + 8000);
 });
 
 app.get('/', (req, res, next) => {

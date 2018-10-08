@@ -1,3 +1,3 @@
 module.exports = {
-  scriptLocation: './local-path-to-script'
+  scriptLocation: '../scripts/lightswitch'
 }
